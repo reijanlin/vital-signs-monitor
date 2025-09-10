@@ -68,6 +68,24 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
 
+        .section.current-vitals {
+            border-left: 5px solid #3498db;
+        }
+
+        .section.medical-history {
+            border-left: 5px solid #e67e22;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Current Vitals Table */
         .vitals-table {
             width: 100%;
             border-collapse: collapse;
@@ -77,4 +95,784 @@
 
         .vitals-table th,
         .vitals-table td {
-            padding: 15
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .vitals-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        .vital-value {
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        .vital-value.normal { color: #27ae60; }
+        .vital-value.warning { color: #f39c12; }
+        .vital-value.critical { color: #e74c3c; }
+        .vital-value.inactive { color: #7f8c8d; }
+
+        .vital-status {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .status-normal { background: #d5f4e6; color: #27ae60; }
+        .status-warning { background: #fef9e7; color: #f1c40f; }
+        .status-critical { background: #fadbd8; color: #e74c3c; }
+        .status-inactive { background: #f8f9fa; color: #6c757d; }
+
+        /* Professional Log Section */
+        .history-controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .history-controls button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+
+        .history-controls button:hover {
+            background: #2980b9;
+        }
+
+        .history-controls select {
+            padding: 8px 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .export-btn {
+            background: #27ae60 !important;
+        }
+
+        .export-btn:hover {
+            background: #219a52 !important;
+        }
+
+        .clear-btn {
+            background: #e74c3c !important;
+        }
+
+        .clear-btn:hover {
+            background: #c0392b !important;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1em;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .history-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 0.9em;
+            position: sticky;
+            top: 0;
+        }
+
+        .history-container {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+        }
+
+        .record-timestamp {
+            font-family: 'Courier New', monospace;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .record-trigger {
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .trigger-interval {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .trigger-threshold {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .vitals-cell {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .delete-record-btn {
+            background: #e67e22;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: 5px;
+            transition: background 0.3s;
+        }
+
+        .delete-record-btn:hover {
+            background: #d35400;
+        }
+
+        /* Charts Section */
+        .charts-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid #1abc9c;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .system-info {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .last-update {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .no-records {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .vitals-table th,
+            .vitals-table td,
+            .history-table th,
+            .history-table td {
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+            
+            .history-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            .charts-section,
+            .history-controls,
+            .export-btn,
+            .clear-btn,
+            .delete-record-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Medical Vitals History System</h1>
+        <div id="connectionStatus" class="connection-status disconnected">
+            Disconnected
+        </div>
+        <div class="last-update">
+            Last Update: <span id="lastUpdate">Never</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Current Vitals Section -->
+        <div class="section current-vitals">
+            <h2 class="section-title">Current Vital Signs</h2>
+            
+            <div class="system-info">
+                <div class="info-item">
+                    <span class="info-label">Status:</span>
+                    <span id="monitoringStatus">STOPPED</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Signal:</span>
+                    <span id="signalQuality">No Signal</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Camera:</span>
+                    <span id="cameraStatus">Not Active</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Connection:</span>
+                    <span id="connectionStatusText">Disconnected</span>
+                </div>
+            </div>
+
+            <table class="vitals-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Current Value</th>
+                        <th>Normal Range</th>
+                        <th>Status</th>
+                        <th>Last Reading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Heart Rate</strong></td>
+                        <td class="vital-value inactive" id="bmpValue">--- BPM</td>
+                        <td>60-100 BPM</td>
+                        <td><span class="vital-status status-inactive" id="bmpStatus">Not Connected</span></td>
+                        <td id="bmpLastUpdate">--:--:--</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Blood Oxygen (SpO2)</strong></td>
+                        <td class="vital-value inactive" id="spo2Value">---%</td>
+                        <td>95-100%</td>
+                        <td><span class="vital-status status-inactive" id="spo2Status">Not Connected</span></td>
+                        <td id="spo2LastUpdate">--:--:--</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Respiration Rate</strong></td>
+                        <td class="vital-value inactive" id="rrValue">--- BPM</td>
+                        <td>12-20 BPM</td>
+                        <td><span class="vital-status status-inactive" id="rrStatus">Not Connected</span></td>
+                        <td id="rrLastUpdate">--:--:--</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Temperature</strong></td>
+                        <td class="vital-value inactive" id="tempValue">---°C</td>
+                        <td>36.1-37.2°C</td>
+                        <td><span class="vital-status status-inactive" id="tempStatus">Not Connected</span></td>
+                        <td id="tempLastUpdate">--:--:--</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Medical History Section -->
+        <div class="section medical-history">
+            <h2 class="section-title">Medical Vitals History</h2>
+            
+            <div class="history-controls">
+                <button onclick="loadHistory()">Refresh History</button>
+                <select id="recordLimit">
+                    <option value="10">Last 10 records</option>
+                    <option value="25">Last 25 records</option>
+                    <option value="50">Last 50 records</option>
+                    <option value="100">Last 100 records</option>
+                    <option value="">All records</option>
+                </select>
+                <button class="export-btn" onclick="exportHistory()">Export to CSV</button>
+                <button class="clear-btn" onclick="clearHistory()">Clear All History</button>
+                <span id="recordCount" style="margin-left: auto; color: #7f8c8d;">0 records</span>
+            </div>
+            
+            <div class="history-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Date/Time</th>
+                            <th>Trigger</th>
+                            <th>Heart Rate</th>
+                            <th>SpO2</th>
+                            <th>Resp Rate</th>
+                            <th>Temperature</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <tr>
+                            <td colspan="7" class="no-records">
+                                No medical records yet. Records will appear here based on your interval and threshold settings.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <h2 class="section-title">Real-time Monitoring Charts</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <canvas id="bmpChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="spo2Chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="rrChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="tempChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Socket.IO connection
+        const socket = io();
+        
+        // Chart configurations
+        let bmpChart, spo2Chart, rrChart, tempChart;
+        let vitalsHistory = [];
+
+        // Initialize charts
+        function initializeCharts() {
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: { duration: 750 },
+                scales: {
+                    x: { display: true, title: { display: true, text: 'Time' } },
+                    y: { display: true, beginAtZero: false }
+                },
+                plugins: { legend: { display: false } }
+            };
+
+            bmpChart = new Chart(document.getElementById('bmpChart'), {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Heart Rate (BPM)',
+                        data: [],
+                        borderColor: '#e74c3c',
+                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: 'Heart Rate (BPM)' } } }
+            });
+
+            spo2Chart = new Chart(document.getElementById('spo2Chart'), {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'SpO2 (%)',
+                        data: [],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: 'Blood Oxygen (%)' } } }
+            });
+
+            rrChart = new Chart(document.getElementById('rrChart'), {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Respiration Rate',
+                        data: [],
+                        borderColor: '#2ecc71',
+                        backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: 'Breathing Rate (BPM)' } } }
+            });
+
+            tempChart = new Chart(document.getElementById('tempChart'), {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Temperature (°C)',
+                        data: [],
+                        borderColor: '#f39c12',
+                        backgroundColor: 'rgba(243, 156, 18, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: 'Temperature (°C)' } } }
+            });
+        }
+
+        // Update vital signs display
+        function updateVitalSigns(data) {
+            const currentTime = new Date().toLocaleTimeString();
+
+            // Update connection status
+            const isConnected = data.connection_status === 'Connected';
+            const connectionEl = document.getElementById('connectionStatus');
+            connectionEl.className = `connection-status ${isConnected ? 'connected' : 'disconnected'}`;
+            connectionEl.textContent = data.connection_status;
+
+            // Update vital signs
+            updateVital('bmp', data.bmp, currentTime, data.bmp_status, getBmpValueClass);
+            updateVital('spo2', data.spo2, currentTime, data.spo2_status, getSpo2ValueClass, '%', 1);
+            updateVital('rr', data.respiration_rate, currentTime, data.rr_status, getRrValueClass, ' BPM', 1);
+            updateVital('temp', data.temperature_c, currentTime, data.temp_status, getTempValueClass, '°C', 1);
+
+            // Update system status
+            document.getElementById('monitoringStatus').textContent = data.monitoring_status;
+            document.getElementById('signalQuality').textContent = data.signal_quality;
+            document.getElementById('cameraStatus').textContent = data.camera_status;
+            document.getElementById('connectionStatusText').textContent = data.connection_status;
+
+            // Update last update time
+            const lastUpdate = new Date(data.last_update).toLocaleTimeString();
+            document.getElementById('lastUpdate').textContent = lastUpdate;
+        }
+
+        function updateVital(type, value, currentTime, status, classFunction, unit = ' BPM', decimals = 0) {
+            const valueEl = document.getElementById(`${type}Value`);
+            const statusEl = document.getElementById(`${type}Status`);
+            const updateEl = document.getElementById(`${type}LastUpdate`);
+
+            if (value > 0) {
+                const displayValue = decimals > 0 ? value.toFixed(decimals) : value;
+                valueEl.textContent = `${displayValue}${unit}`;
+                valueEl.className = classFunction(value);
+                updateEl.textContent = currentTime;
+            } else {
+                valueEl.textContent = `---${unit}`;
+                valueEl.className = 'vital-value inactive';
+                updateEl.textContent = '--:--:--';
+            }
+            updateStatusIndicator(statusEl, status);
+        }
+
+        function getBmpValueClass(bmp) {
+            if (bmp >= 60 && bmp <= 100) return 'vital-value normal';
+            if (bmp > 50 && bmp < 120) return 'vital-value warning';
+            return 'vital-value critical';
+        }
+
+        function getSpo2ValueClass(spo2) {
+            if (spo2 >= 95) return 'vital-value normal';
+            if (spo2 >= 90) return 'vital-value warning';
+            return 'vital-value critical';
+        }
+
+        function getRrValueClass(rr) {
+            if (rr >= 12 && rr <= 20) return 'vital-value normal';
+            if (rr >= 8 && rr <= 25) return 'vital-value warning';
+            return 'vital-value critical';
+        }
+
+        function getTempValueClass(temp) {
+            if (temp >= 36.1 && temp <= 37.2) return 'vital-value normal';
+            if (temp >= 38.0) return 'vital-value critical';
+            return 'vital-value warning';
+        }
+
+        function updateStatusIndicator(element, status) {
+            element.textContent = status;
+            element.className = 'vital-status ';
+            if (status.includes('Stable') || status.includes('Normal')) {
+                element.className += 'status-normal';
+            } else if (status.includes('Measuring') || status.includes('Building')) {
+                element.className += 'status-warning';
+            } else if (status.includes('Low') || status.includes('High') || status.includes('Fever')) {
+                element.className += 'status-critical';
+            } else {
+                element.className += 'status-inactive';
+            }
+        }
+
+        // Load medical history
+        function loadHistory() {
+            const limit = document.getElementById('recordLimit').value;
+            const url = limit ? `/api/vitals_history?limit=${limit}` : '/api/vitals_history';
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    vitalsHistory = data.records || [];
+                    displayHistory();
+                    document.getElementById('recordCount').textContent = 
+                        `${data.filtered_count || 0} of ${data.total_count || 0} records`;
+                })
+                .catch(error => {
+                    console.error('Error loading history:', error);
+                    document.getElementById('recordCount').textContent = 'Error loading records';
+                });
+        }
+
+        function displayHistory() {
+            const tbody = document.getElementById('historyTableBody');
+            
+            if (vitalsHistory.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="no-records">
+                            No medical records yet. Records will appear here based on your interval and threshold settings.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = vitalsHistory.map(record => {
+                const date = new Date(record.timestamp);
+                const vitals = record.vital_signs;
+                
+                return `
+                    <tr>
+                        <td class="record-timestamp">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</td>
+                        <td><span class="record-trigger trigger-${record.trigger_type}">${record.trigger_type.toUpperCase()}</span></td>
+                        <td class="vitals-cell">${vitals.heart_rate_bpm} BPM<br><small>${vitals.heart_rate_status}</small></td>
+                        <td class="vitals-cell">${vitals.spo2_percent}%<br><small>${vitals.spo2_status}</small></td>
+                        <td class="vitals-cell">${vitals.respiration_rate_bpm} BPM<br><small>${vitals.respiration_status}</small></td>
+                        <td class="vitals-cell">${vitals.temperature_celsius}°C<br><small>${vitals.temperature_status}</small></td>
+                        <td>
+                            <small>${record.trigger_reason}</small>
+                            <button class="delete-record-btn" onclick="deleteRecord('${record.record_id}')">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function exportHistory() {
+            if (vitalsHistory.length === 0) {
+                alert('No medical records to export');
+                return;
+            }
+
+            const headers = ['Date', 'Time', 'Trigger Type', 'Heart Rate (BPM)', 'SpO2 (%)', 'Respiration Rate (BPM)', 'Temperature (°C)', 'Notes'];
+            const csvContent = [
+                headers.join(','),
+                ...vitalsHistory.map(record => {
+                    const date = new Date(record.timestamp);
+                    const vitals = record.vital_signs;
+                    return [
+                        date.toLocaleDateString(),
+                        date.toLocaleTimeString(),
+                        record.trigger_type,
+                        vitals.heart_rate_bpm,
+                        vitals.spo2_percent,
+                        vitals.respiration_rate_bpm,
+                        vitals.temperature_celsius,
+                        `"${record.trigger_reason}"`
+                    ].join(',');
+                })
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `vitals_history_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function clearHistory() {
+            if (vitalsHistory.length === 0) {
+                alert('No medical records to clear');
+                return;
+            }
+
+            const confirmed = confirm(`Are you sure you want to clear ALL medical history records?\n\nThis will permanently delete ${vitalsHistory.length} records and cannot be undone.`);
+            
+            if (confirmed) {
+                fetch('/api/vitals_history/clear', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        vitalsHistory = [];
+                        displayHistory();
+                        document.getElementById('recordCount').textContent = '0 records';
+                        alert('All medical history has been cleared successfully.');
+                    } else {
+                        alert('Error clearing history: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error clearing history:', error);
+                    alert('Error clearing history. Please try again.');
+                });
+            }
+        }
+
+        function deleteRecord(recordId) {
+            const confirmed = confirm('Are you sure you want to delete this medical record?\n\nThis action cannot be undone.');
+            
+            if (confirmed) {
+                fetch(`/api/vitals_history/${recordId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Remove from local array
+                        vitalsHistory = vitalsHistory.filter(record => record.record_id !== recordId);
+                        displayHistory();
+                        
+                        // Update record count
+                        const currentCount = vitalsHistory.length;
+                        document.getElementById('recordCount').textContent = `${currentCount} records`;
+                        
+                        console.log('Record deleted successfully');
+                    } else {
+                        alert('Error deleting record: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting record:', error);
+                    alert('Error deleting record. Please try again.');
+                });
+            }
+        }
+
+        function updateCharts(data) {
+            const currentTime = new Date().toLocaleTimeString();
+            
+            const charts = [
+                { chart: bmpChart, value: data.bmp },
+                { chart: spo2Chart, value: data.spo2 },
+                { chart: rrChart, value: data.respiration_rate },
+                { chart: tempChart, value: data.temperature_c }
+            ];
+
+            charts.forEach(({ chart, value }) => {
+                if (value > 0) {
+                    chart.data.labels.push(currentTime);
+                    chart.data.datasets[0].data.push(value);
+                    if (chart.data.labels.length > 20) {
+                        chart.data.labels.shift();
+                        chart.data.datasets[0].data.shift();
+                    }
+                    chart.update('none');
+                }
+            });
+        }
+
+        // Socket event handlers
+        socket.on('connect', function() {
+            console.log('Connected to server');
+            loadHistory();
+        });
+
+        socket.on('disconnect', function() {
+            console.log('Disconnected from server');
+            document.getElementById('connectionStatus').className = 'connection-status disconnected';
+            document.getElementById('connectionStatus').textContent = 'Disconnected';
+        });
+
+        socket.on('vital_signs_update', function(data) {
+            updateVitalSigns(data);
+            updateCharts(data);
+        });
+
+        socket.on('new_vitals_record', function(record) {
+            console.log('New medical record received:', record);
+            // Add to beginning of array and refresh display
+            vitalsHistory.unshift(record);
+            displayHistory();
+            
+            // Update record count
+            const currentCount = document.getElementById('recordCount').textContent;
+            const match = currentCount.match(/(\d+) of (\d+)/);
+            if (match) {
+                const filtered = parseInt(match[1]) + 1;
+                const total = parseInt(match[2]) + 1;
+                document.getElementById('recordCount').textContent = `${filtered} of ${total} records`;
+            }
+        });
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            loadHistory();
+            
+            // Fetch initial vital signs data
+            fetch('/api/vital_signs')
+                .then(response => response.json())
+                .then(data => updateVitalSigns(data))
+                .catch(error => console.log('Error fetching initial data:', error));
+        });
+    </script>
+</body>
+</html>
