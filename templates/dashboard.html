@@ -392,10 +392,10 @@
                 <tbody>
                     <tr>
                         <td><strong>Heart Rate</strong></td>
-                        <td class="vital-value inactive" id="bmpValue">--- BPM</td>
+                        <td class="vital-value inactive" id="bpmValue">--- BPM</td>
                         <td>60-100 BPM</td>
-                        <td><span class="vital-status status-inactive" id="bmpStatus">Not Connected</span></td>
-                        <td id="bmpLastUpdate">--:--:--</td>
+                        <td><span class="vital-status status-inactive" id="bpmStatus">Not Connected</span></td>
+                        <td id="bpmLastUpdate">--:--:--</td>
                     </tr>
                     <tr>
                         <td><strong>Blood Oxygen (SpO2)</strong></td>
@@ -469,7 +469,7 @@
             <h2 class="section-title">Real-time Monitoring Charts</h2>
             <div class="charts-grid">
                 <div class="chart-container">
-                    <canvas id="bmpChart"></canvas>
+                    <canvas id="bpmChart"></canvas>
                 </div>
                 <div class="chart-container">
                     <canvas id="spo2Chart"></canvas>
@@ -489,7 +489,7 @@
         const socket = io();
         
         // Chart configurations
-        let bmpChart, spo2Chart, rrChart, tempChart;
+        let bpmChart, spo2Chart, rrChart, tempChart;
         let vitalsHistory = [];
 
         // Initialize charts
@@ -505,7 +505,7 @@
                 plugins: { legend: { display: false } }
             };
 
-            bmpChart = new Chart(document.getElementById('bmpChart'), {
+            bpmChart = new Chart(document.getElementById('bpmChart'), {
                 type: 'line',
                 data: {
                     labels: [],
@@ -581,7 +581,7 @@
             connectionEl.textContent = data.connection_status;
 
             // Update vital signs
-            updateVital('bmp', data.bmp, currentTime, data.bmp_status, getBmpValueClass);
+            updateVital('bpm', data.bpm, currentTime, data.bpm_status, getbpmValueClass);
             updateVital('spo2', data.spo2, currentTime, data.spo2_status, getSpo2ValueClass, '%', 1);
             updateVital('rr', data.respiration_rate, currentTime, data.rr_status, getRrValueClass, ' BPM', 1);
             updateVital('temp', data.temperature_c, currentTime, data.temp_status, getTempValueClass, '°C', 1);
@@ -615,9 +615,9 @@
             updateStatusIndicator(statusEl, status);
         }
 
-        function getBmpValueClass(bmp) {
-            if (bmp >= 60 && bmp <= 100) return 'vital-value normal';
-            if (bmp > 50 && bmp < 120) return 'vital-value warning';
+        function getbpmValueClass(bpm) {
+            if (bpm >= 60 && bpm <= 100) return 'vital-value normal';
+            if (bpm > 50 && bpm < 120) return 'vital-value warning';
             return 'vital-value critical';
         }
 
@@ -810,7 +810,7 @@
             const currentTime = new Date().toLocaleTimeString();
             
             const charts = [
-                { chart: bmpChart, value: data.bmp },
+                { chart: bpmChart, value: data.bpm },
                 { chart: spo2Chart, value: data.spo2 },
                 { chart: rrChart, value: data.respiration_rate },
                 { chart: tempChart, value: data.temperature_c }
