@@ -1,6 +1,5 @@
 """
 Complete Vital Signs Server with Medical History Recording System
-Save this file as: server.py
 """
 
 from flask import Flask, render_template, jsonify, request
