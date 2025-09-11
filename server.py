@@ -177,6 +177,29 @@ def receive_vitals_history():
         traceback.print_exc()
         return jsonify({'status': 'error', 'message': str(e)}), 400
 
+@app.route('/api/vitals_history/<record_id>', methods=['DELETE'])
+def delete_vitals_record(record_id):
+    """Delete specific medical record by ID"""
+    try:
+        global vitals_history
+        initial_count = len(vitals_history)
+        vitals_history = [r for r in vitals_history if r.get('record_id') != record_id]
+        
+        if len(vitals_history) < initial_count:
+            save_vitals_history()
+            print(f"Deleted medical record: {record_id}")
+            
+            # Emit update to connected clients
+            socketio.emit('record_deleted', {'record_id': record_id})
+            
+            return jsonify({'status': 'success', 'message': 'Record deleted'})
+        else:
+            return jsonify({'error': 'Record not found'}), 404
+            
+    except Exception as e:
+        print(f"Error deleting record: {e}")
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/api/vitals_history', methods=['GET'])
 def get_vitals_history():
     """Get medical vitals history with optional filtering"""
