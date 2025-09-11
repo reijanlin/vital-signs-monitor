@@ -392,10 +392,10 @@
                 <tbody>
                     <tr>
                         <td><strong>Heart Rate</strong></td>
-                        <td class="vital-value inactive" id="bmpValue">--- BPM</td>
+                        <td class="vital-value inactive" id="bpmValue">--- BPM</td>
                         <td>60-100 BPM</td>
-                        <td><span class="vital-status status-inactive" id="bmpStatus">Not Connected</span></td>
-                        <td id="bmpLastUpdate">--:--:--</td>
+                        <td><span class="vital-status status-inactive" id="bpmStatus">Not Connected</span></td>
+                        <td id="bpmLastUpdate">--:--:--</td>
                     </tr>
                     <tr>
                         <td><strong>Blood Oxygen (SpO2)</strong></td>
@@ -469,7 +469,7 @@
             <h2 class="section-title">Real-time Monitoring Charts</h2>
             <div class="charts-grid">
                 <div class="chart-container">
-                    <canvas id="bmpChart"></canvas>
+                    <canvas id="bpmChart"></canvas>
                 </div>
                 <div class="chart-container">
                     <canvas id="spo2Chart"></canvas>
@@ -489,7 +489,7 @@
         const socket = io();
         
         // Chart configurations
-        let bmpChart, spo2Chart, rrChart, tempChart;
+        let bpmChart, spo2Chart, rrChart, tempChart;
         let vitalsHistory = [];
 
         // Initialize charts
@@ -505,12 +505,12 @@
                 plugins: { legend: { display: false } }
             };
 
-            bmpChart = new Chart(document.getElementById('bmpChart'), {
+            bpmChart = new Chart(document.getElementById('bpmChart'), {
                 type: 'line',
                 data: {
                     labels: [],
                     datasets: [{
-                        label: 'Heart Rate (bmp)',
+                        label: 'Heart Rate (bpm)',
                         data: [],
                         borderColor: '#e74c3c',
                         backgroundColor: 'rgba(231, 76, 60, 0.1)',
@@ -518,7 +518,7 @@
                         fill: true
                     }]
                 },
-                options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: 'Heart Rate (bmp)' } } }
+                options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: 'Heart Rate (bpm)' } } }
             });
 
             spo2Chart = new Chart(document.getElementById('spo2Chart'), {
@@ -550,7 +550,7 @@
                         fill: true
                     }]
                 },
-                options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: 'Breathing Rate (bmp)' } } }
+                options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: 'Breathing Rate (bpm)' } } }
             });
 
             tempChart = new Chart(document.getElementById('tempChart'), {
@@ -581,9 +581,9 @@
             connectionEl.textContent = data.connection_status;
 
             // Update vital signs
-            updateVital('bmp', data.bmp, currentTime, data.bmp_status, getbmpValueClass);
+            updateVital('bpm', data.bpm, currentTime, data.bpm_status, getbpmValueClass);
             updateVital('spo2', data.spo2, currentTime, data.spo2_status, getSpo2ValueClass, '%', 1);
-            updateVital('rr', data.respiration_rate, currentTime, data.rr_status, getRrValueClass, ' bmp', 1);
+            updateVital('rr', data.respiration_rate, currentTime, data.rr_status, getRrValueClass, ' bpm', 1);
             updateVital('temp', data.temperature_c, currentTime, data.temp_status, getTempValueClass, '°C', 1);
 
             // Update system status
@@ -597,7 +597,7 @@
             document.getElementById('lastUpdate').textContent = lastUpdate;
         }
 
-        function updateVital(type, value, currentTime, status, classFunction, unit = ' bmp', decimals = 0) {
+        function updateVital(type, value, currentTime, status, classFunction, unit = ' bpm', decimals = 0) {
             const valueEl = document.getElementById(`${type}Value`);
             const statusEl = document.getElementById(`${type}Status`);
             const updateEl = document.getElementById(`${type}LastUpdate`);
@@ -615,9 +615,9 @@
             updateStatusIndicator(statusEl, status);
         }
 
-        function getbmpValueClass(bmp) {
-            if (bmp >= 60 && bmp <= 100) return 'vital-value normal';
-            if (bmp > 50 && bmp < 120) return 'vital-value warning';
+        function getbpmValueClass(bpm) {
+            if (bpm >= 60 && bpm <= 100) return 'vital-value normal';
+            if (bpm > 50 && bpm < 120) return 'vital-value warning';
             return 'vital-value critical';
         }
 
@@ -694,9 +694,9 @@
                     <tr>
                         <td class="record-timestamp">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</td>
                         <td><span class="record-trigger trigger-${record.trigger_type}">${record.trigger_type.toUpperCase()}</span></td>
-                        <td class="vitals-cell">${vitals.heart_rate_bmp} bmp<br><small>${vitals.heart_rate_status}</small></td>
+                        <td class="vitals-cell">${vitals.heart_rate_bpm} bpm<br><small>${vitals.heart_rate_status}</small></td>
                         <td class="vitals-cell">${vitals.spo2_percent}%<br><small>${vitals.spo2_status}</small></td>
-                        <td class="vitals-cell">${vitals.respiration_rate_bmp} bmp<br><small>${vitals.respiration_status}</small></td>
+                        <td class="vitals-cell">${vitals.respiration_rate_bpm} bpm<br><small>${vitals.respiration_status}</small></td>
                         <td class="vitals-cell">${vitals.temperature_celsius}°C<br><small>${vitals.temperature_status}</small></td>
                         <td>
                             <small>${record.trigger_reason}</small>
@@ -713,7 +713,7 @@
                 return;
             }
 
-            const headers = ['Date', 'Time', 'Trigger Type', 'Heart Rate (bmp)', 'SpO2 (%)', 'Respiration Rate (bmp)', 'Temperature (°C)', 'Notes'];
+            const headers = ['Date', 'Time', 'Trigger Type', 'Heart Rate (bpm)', 'SpO2 (%)', 'Respiration Rate (bpm)', 'Temperature (°C)', 'Notes'];
             const csvContent = [
                 headers.join(','),
                 ...vitalsHistory.map(record => {
@@ -723,9 +723,9 @@
                         date.toLocaleDateString(),
                         date.toLocaleTimeString(),
                         record.trigger_type,
-                        vitals.heart_rate_bmp,
+                        vitals.heart_rate_bpm,
                         vitals.spo2_percent,
-                        vitals.respiration_rate_bmp,
+                        vitals.respiration_rate_bpm,
                         vitals.temperature_celsius,
                         `"${record.trigger_reason}"`
                     ].join(',');
@@ -810,7 +810,7 @@
             const currentTime = new Date().toLocaleTimeString();
             
             const charts = [
-                { chart: bmpChart, value: data.bmp },
+                { chart: bpmChart, value: data.bpm },
                 { chart: spo2Chart, value: data.spo2 },
                 { chart: rrChart, value: data.respiration_rate },
                 { chart: tempChart, value: data.temperature_c }
