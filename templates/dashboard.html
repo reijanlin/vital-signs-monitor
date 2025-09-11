@@ -581,7 +581,7 @@
             connectionEl.textContent = data.connection_status;
 
             // Update vital signs
-            updateVital('bpm', data.bpm, currentTime, data.bpm_status, getbpmValueClass. ' BPM');
+            updateVital('bpm', data.bpm, currentTime, data.bpm_status, getbpmValueClass, ' BPM');
             updateVital('spo2', data.spo2, currentTime, data.spo2_status, getSpo2ValueClass, '%', 1);
             updateVital('rr', data.respiration_rate, currentTime, data.rr_status, getRrValueClass, ' BrPM', 1);
             updateVital('temp', data.temperature_c, currentTime, data.temp_status, getTempValueClass, '°C', 1);
