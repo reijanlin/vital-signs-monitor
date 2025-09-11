@@ -18,8 +18,8 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Global data storage for live monitoring
 vital_signs_data = {
-    'bmp': 0,
-    'bmp_status': 'Not Connected',
+    'bpm': 0,
+    'bpm_status': 'Not Connected',
     'spo2': 0,
     'spo2_status': 'Not Connected',
     'respiration_rate': 0,
@@ -36,7 +36,7 @@ vital_signs_data = {
 
 # Historical data for charts (keep last 100 readings)
 historical_data = {
-    'bmp': deque(maxlen=100),
+    'bpm': deque(maxlen=100),
     'spo2': deque(maxlen=100),
     'respiration_rate': deque(maxlen=100),
     'temperature': deque(maxlen=100),
@@ -110,8 +110,8 @@ def receive_vital_signs():
         
         # Update live vital signs data
         vital_signs_data.update({
-            'bmp': data.get('bmp', 0),
-            'bmp_status': data.get('bmp_status', 'Unknown'),
+            'bpm': data.get('bpm', 0),
+            'bpm_status': data.get('bpm_status', 'Unknown'),
             'spo2': data.get('spo2', 0),
             'spo2_status': data.get('spo2_status', 'Unknown'),
             'respiration_rate': data.get('respiration_rate', 0),
@@ -128,7 +128,7 @@ def receive_vital_signs():
         
         # Add to historical data for charts
         current_time = datetime.now().isoformat()
-        historical_data['bmp'].append(data.get('bmp', 0))
+        historical_data['bpm'].append(data.get('bpm', 0))
         historical_data['spo2'].append(data.get('spo2', 0))
         historical_data['respiration_rate'].append(data.get('respiration_rate', 0))
         historical_data['temperature'].append(data.get('temperature_c', 0))
@@ -162,7 +162,7 @@ def receive_vitals_history():
         save_vitals_history()
         
         print(f"📋 Medical Record Saved - {medical_record['trigger_type'].upper()}: "
-              f"BMP={medical_record['vital_signs']['heart_rate_bpm']}, "
+              f"bpm={medical_record['vital_signs']['heart_rate_bpm']}, "
               f"SpO2={medical_record['vital_signs']['spo2_percent']}%, "
               f"RR={medical_record['vital_signs']['respiration_rate_bpm']}, "
               f"Temp={medical_record['vital_signs']['temperature_celsius']}°C")
