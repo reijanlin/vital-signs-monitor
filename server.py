@@ -200,6 +200,30 @@ def delete_vitals_record(record_id):
         print(f"Error deleting record: {e}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/vitals_history/clear', methods=['POST'])
+def clear_all_vitals_history():
+    """Clear all medical history records"""
+    try:
+        global vitals_history
+        record_count = len(vitals_history)
+        vitals_history = []
+        save_vitals_history()
+        
+        print(f"Cleared all medical history - {record_count} records deleted")
+        
+        # Notify all connected clients
+        socketio.emit('history_cleared', {'message': 'All medical history has been cleared'})
+        
+        return jsonify({
+            'status': 'success', 
+            'message': f'All {record_count} medical records have been cleared',
+            'records_deleted': record_count
+        })
+        
+    except Exception as e:
+        print(f"Error clearing vitals history: {e}")
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
 @app.route('/api/vitals_history', methods=['GET'])
 def get_vitals_history():
     """Get medical vitals history with optional filtering"""
