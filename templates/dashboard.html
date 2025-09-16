@@ -606,7 +606,8 @@
                 const displayValue = decimals > 0 ? value.toFixed(decimals) : value;
                 valueEl.textContent = `${displayValue}${unit}`;
                 valueEl.className = classFunction(value);
-                updateEl.textContent = currentTime;
+                const currentDate = new Date().toLocaleDateString();
+                updateEl.textContent = `${currentDate} ${currentTime}`;
             } else {
                 valueEl.textContent = `---${unit}`;
                 valueEl.className = 'vital-value inactive';
