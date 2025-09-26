@@ -673,10 +673,51 @@
                 });
         }
 
+        let fullVitalsHistory = [];  // Store complete dataset
+        let displayedVitalsHistory = [];  // Store filtered/limited records for display
+        
+        function loadHistory() {
+            const limit = document.getElementById('recordLimit').value;
+            const url = limit ? `/api/vitals_history?limit=${limit}` : '/api/vitals_history';
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (!limit) {
+                        // If no limit, we're getting all records - update full dataset
+                        fullVitalsHistory = data.records || [];
+                        displayedVitalsHistory = fullVitalsHistory;
+                    } else {
+                        // If limit is set, only update displayed records
+                        // Keep full dataset intact unless we need to refresh it
+                        displayedVitalsHistory = data.records || [];
+                        
+                        // If we don't have the full dataset yet, fetch it separately
+                        if (fullVitalsHistory.length === 0) {
+                            fetch('/api/vitals_history')
+                                .then(response => response.json())
+                                .then(fullData => {
+                                    fullVitalsHistory = fullData.records || [];
+                                })
+                                .catch(error => console.error('Error loading full history:', error));
+                        }
+                    }
+                    
+                    displayHistory();
+                    document.getElementById('recordCount').textContent = 
+                        `${data.filtered_count || 0} of ${data.total_count || 0} records`;
+                })
+                .catch(error => {
+                    console.error('Error loading history:', error);
+                    document.getElementById('recordCount').textContent = 'Error loading records';
+                });
+        }
+        
         function displayHistory() {
             const tbody = document.getElementById('historyTableBody');
             
-            if (vitalsHistory.length === 0) {
+            // Use displayed records for the table
+            if (displayedVitalsHistory.length === 0) {
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="7" class="no-records">
@@ -686,8 +727,8 @@
                 `;
                 return;
             }
-
-            tbody.innerHTML = vitalsHistory.map(record => {
+        
+            tbody.innerHTML = displayedVitalsHistory.map(record => {
                 const date = new Date(record.timestamp);
                 const vitals = record.vital_signs;
                 
@@ -707,6 +748,7 @@
                 `;
             }).join('');
         }
+    
 
         function exportHistory() {
             if (vitalsHistory.length === 0) {
